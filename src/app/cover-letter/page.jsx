@@ -1,9 +1,10 @@
 'use client';
 import React from 'react';
 import { useState } from "react";
+// ui components
 import Body from '@/components/ui/body';
 import Section from '@/components/ui/section';
-import Textarea from '@/utils/text-area';
+import Textarea from '@/components/ui/text-area';
 import Button from '@/components/ui/button';
 
 export default function CoverLetterPage() {
@@ -13,12 +14,25 @@ export default function CoverLetterPage() {
   const [tone, setTone] = useState("professional");
   const [feedback, setFeedback] = useState('')
   const [isLoading, setIsLoading] = useState(false);
-
+  const [errorMessage, setErrorMessage] = useState('');
+  
   const handleSubmit = async () => {
 
     try {
 
       setIsLoading(true);
+
+      if (!jobDescription.trim()) {
+        throw new Error("Please enter a job description");
+      }
+      if (!role.trim()) {
+        throw new Error("Please enter your desired role");
+      }
+
+      if (!tone.trim()) {
+        throw new Error("Please select a tone for your cover letter");
+      }
+
       const response = await fetch('/api/generate-cover-letter', {
         method: 'POST',
         headers: {
@@ -39,23 +53,23 @@ export default function CoverLetterPage() {
 
     } catch (error) {
       console.error('Error generating cover letter:', error);
-      setFeedback('Sorry, there was an error generating your cover letter. Please try again.');
+      setErrorMessage(error.message || 'An unexpected error occurred while generating your cover letter. Please try again.');
     } finally {
       setIsLoading(false);
     }
   }
 
   return (
-    <Body classname='w-auto p-8'>
+    <Body>
 
       <Section className="text-center">
-        <h3 className="text-4xl font-extrabold tracking-tight text-stone-800 md:text-4xl">AI <span className='text-blue-600'>Cover Letter</span> Generator</h3>
-        <p className="text-lg text-stone-600">Instantly generate tailored cover letters from any job description.</p>
+        <h3 className="text-4xl font-extrabold tracking-tight md:text-4xl">AI <span className='text-primary'>Cover Letter</span> Generator</h3>
+        <p className="text-lg">Instantly generate tailored cover letters from any job description.</p>
       </Section>
 
       {/* Job Description... */}
       <Section>
-        <h5 className="text-xl font-bold text-gray-800 mb-2">Job Description</h5>
+        <h5 className="text-xl font-bold mb-2">Job Description</h5>
         <Textarea onTextAreaChange={(e) => setJobDescription(e.target.value)} />
         <p className="text-sm text-gray-500">
           Works great with content pasted from LinkedIn or other job boards.
@@ -74,20 +88,22 @@ export default function CoverLetterPage() {
       
       {/* Generate Button */}
       <Section className='flex items-center justify-center'>
-        <Button variant="primary" className={`rounded-xl ${isLoading ? 'bg-blue-400' : 'bg-blue-600'} px-4 py-3 text-sm font-semibold text-white shadow-sm ${isLoading ? 'hover:nono' : 'hover:bg-blue-800'} transition`} onClick={handleSubmit} disabled={isLoading}>
+        <Button variant="primary" 
+          className={`btn btn-primary rounded-xl px-4 py-3 text-sm`} onClick={handleSubmit} disabled={isLoading}>
           {isLoading ? 'Generating...' : 'Generate Cover Letter'}
         </Button>
       </Section>
-
+      
+      {errorMessage && <p className="w-auto mt-4 text-sm">{errorMessage}</p>}
+      
       {/* Cover Letter Output */}
-      <Section className="bg-stone-50 border border-stone-200 p-5 rounded-lg shadow-sm whitespace-pre-line min-h-60">
+      <Section className="bg-base-200 p-5 rounded-lg shadow-sm whitespace-pre-line min-h-60">
         {feedback ? (
           <div>
-            <h5 className="text-xl font-bold text-gray-800 mb-2">Your Enhanced Cover Letter:</h5>
-            <p className="text-gray-700">{feedback}</p>
+            <p className="text-base-content">{feedback}</p>
           </div>
         ) : (
-          <p className="text-gray-500">Your enhanced cover letter will appear here.</p>
+          <p className="text-base-content">Your enhanced cover letter will appear here.</p>
         )}
       </Section>
 

@@ -8,6 +8,13 @@ export async function POST(request) {
     try {
         const { jobDescription, role, tone } = await request.json();
 
+        if (!jobDescription || !role || !tone) {
+            return NextResponse.json(
+                { message: 'Please provide job description, role, and tone for cover letter generation.' },
+                { status: 400 }
+            );
+        }
+
         const system_instructions = `
             You are an expert cover letter writer, write a cover letter of the provided role based on the provided job description. 
             Use provided tone in the cover letter. 

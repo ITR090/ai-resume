@@ -1,7 +1,6 @@
 'use client';
 export default function FileUpload({onFileChange}) {
 
-
   return (
     <label className="flex flex-col items-center justify-center w-full border-2 border-dashed border-gray-300 rounded-xl cursor-pointer hover:border-blue-500 hover:bg-blue-50 transition">
       <div className="flex flex-col items-center justify-center pt-5 pb-6">
