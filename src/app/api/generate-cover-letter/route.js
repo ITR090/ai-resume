@@ -3,9 +3,24 @@ import dotenv from 'dotenv';
 dotenv.config();
 import { GoogleGenAI } from "@google/genai";
 const googleai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+import { getUserIP } from '@/components/utils/get-user-ip';
+import { ratelimit } from '@/components/utils/limiter';
+import { setIP } from '@/components/utils/limiter';
 
 export async function POST(request) {
     try {
+        const userIP = await getUserIP();
+        
+        const { success } = await ratelimit.limit(userIP);
+        // console.log(`Rate limit check for IP ${userIP}: ${success ? 'allowed' : 'blocked'}`);
+        
+        if (!success) { 
+            await setIP(userIP);
+            return NextResponse.json(
+                { message: 'You have reached the limit of cover letter generations allowed per day. Please try again later.' },
+                { status: 429 }
+            );
+        }
         const { jobDescription, role, tone } = await request.json();
 
         if (!jobDescription || !role || !tone) {
@@ -33,8 +48,8 @@ export async function POST(request) {
             system_instruction: system_instructions,
         });
         
-        console.log('Received data for cover letter generation:', { jobDescription, role, tone });
-        console.log('Generated cover letter:', interaction);
+        // console.log('Received data for cover letter generation:', { jobDescription, role, tone });
+        // console.log('Generated cover letter:', interaction);
         
         return NextResponse.json(
             { coverLetter: interaction.output_text }, 
@@ -42,7 +57,7 @@ export async function POST(request) {
         );
 
     } catch (error) {
-        console.error('Error generating cover letter:', error);
+        // console.error('Error generating cover letter:', error);
         return NextResponse.json(
             { message: 'Sorry, there was an error generating your cover letter. Please try again.' },
             { status: 500 }

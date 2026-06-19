@@ -75,7 +75,7 @@ export async function POST(request) {
     } catch (error) {
         console.error("Error generating resume:", error);
         return NextResponse.json(
-            { message: error.message || "Internal Server Error" },
+            { message: error.code || "Internal Server Error" },
             { status: 500 }
         );
     }

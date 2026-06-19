@@ -6,6 +6,9 @@ import Section from "@/components/ui/section";
 import FileUpload from "@/components/ui/file-upload";
 import Textarea from "@/components/ui/text-area";
 import Button from "@/components/ui/button";
+// context
+import { useToast } from '@/context/ToastContext';
+
 
 export default function GenerateResume() {
 
@@ -14,6 +17,7 @@ export default function GenerateResume() {
     const [errorMessage, setErrorMessage] = useState('');
     const [feedback, setFeedback] = useState('')
     const [isLoading, setIsLoading] = useState(false);
+    const { showToast } = useToast()
 
     const handleSubmit = async () => {
 
@@ -24,10 +28,12 @@ export default function GenerateResume() {
             formData.append("jobDescription", jobDescription);
             
             if (!file) {
+                showToast({ message: 'Please upload a resume', type: 'error' });
                 throw new Error("Please upload a resume");
             }
 
             if (!jobDescription.trim()) {
+                showToast({ message: 'Please enter a job description', type: 'error' });
                 throw new Error("Please enter a job description");
             }
             // extract text from the uploaded resume and get the job description from the user input.
@@ -38,6 +44,7 @@ export default function GenerateResume() {
             const result = await response.json();
 
             if (!response.ok) {
+                showToast({ message: result.message || 'Failed to extract resume content', type: 'error' });
                 throw new Error(result.message || "Something went wrong");
             }
 
@@ -57,13 +64,16 @@ export default function GenerateResume() {
                 const generateResult = await generateResponse.json();
 
                 if (!generateResponse.ok) {
+                    showToast({ message: generateResult.message || 'Failed to generate resume', type: 'error' });
                     throw new Error(generateResult.message || "Failed to generate resume");
                 }
 
+                showToast({ message: 'Resume generated successfully!', type: 'success' });
                 setFeedback(generateResult.generatedResume);
             }
 
         } catch (error) {
+            showToast({ message: error.message || 'An unexpected error occurred while generating your resume. Please try again.', type: 'error' });
             setErrorMessage(error.message);
             console.error("Error submitting form:", error.message);
         } finally {

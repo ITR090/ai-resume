@@ -6,6 +6,8 @@ import Body from '@/components/ui/body';
 import Section from '@/components/ui/section';
 import Textarea from '@/components/ui/text-area';
 import Button from '@/components/ui/button';
+// context
+import { useToast } from '@/context/ToastContext';
 
 export default function CoverLetterPage() {
 
@@ -15,6 +17,7 @@ export default function CoverLetterPage() {
   const [feedback, setFeedback] = useState('')
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const { showToast } = useToast()
   
   const handleSubmit = async () => {
 
@@ -23,13 +26,16 @@ export default function CoverLetterPage() {
       setIsLoading(true);
 
       if (!jobDescription.trim()) {
+        showToast({ message: 'Please enter a job description', type: 'error' });
         throw new Error("Please enter a job description");
       }
       if (!role.trim()) {
+        showToast({ message: 'Please enter your desired role', type: 'error' });
         throw new Error("Please enter your desired role");
       }
 
       if (!tone.trim()) {
+        showToast({ message: 'Please select a tone for your cover letter', type: 'error' });
         throw new Error("Please select a tone for your cover letter");
       }
 
@@ -43,16 +49,19 @@ export default function CoverLetterPage() {
 
       if (!response.ok) {
         const errorData = await response.json();
+        showToast({ message: errorData.message || 'Failed to generate cover letter', type: 'error' });
         throw new Error(errorData.message || 'Failed to generate cover letter');
       }
 
       if (response.ok) {
         const generateResult = await response.json();
+        showToast({ message: 'Cover letter generated successfully!', type: 'success' });
         setFeedback(generateResult.coverLetter);
       }
 
     } catch (error) {
       console.error('Error generating cover letter:', error);
+      showToast({ message: error.message || 'An unexpected error occurred while generating your cover letter. Please try again.', type: 'error' });
       setErrorMessage(error.message || 'An unexpected error occurred while generating your cover letter. Please try again.');
     } finally {
       setIsLoading(false);
@@ -71,15 +80,15 @@ export default function CoverLetterPage() {
       <Section>
         <h5 className="text-xl font-bold mb-2">Job Description</h5>
         <Textarea onTextAreaChange={(e) => setJobDescription(e.target.value)} />
-        <p className="text-sm text-gray-500">
+        <p className="text-sm">
           Works great with content pasted from LinkedIn or other job boards.
         </p>
       </Section>
 
       {/* Role */}
-      <Section className="text-sm text-gray-500 mb-4 flex flex-row gap-4">
-        <input type="text" placeholder="Desired Role (e.g., Software Engineer, Product Manager)" className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" value={role} onChange={(e) => setRole(e.target.value)} />
-        <select className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" value={tone} onChange={(e) => setTone(e.target.value)}>
+      <Section className="text-sm mb-4 flex flex-row gap-4">
+        <input type="text" placeholder="Desired Role (e.g., Software Engineer, Product Manager)" className="w-full border rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" value={role} onChange={(e) => setRole(e.target.value)} />
+        <select className="w-full border rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" value={tone} onChange={(e) => setTone(e.target.value)}>
           <option value="professional">Professional</option>
           <option value="confident">Confident</option>
           <option value="executive">Executive</option>

@@ -27,13 +27,9 @@ export default function Home() {
             </p>
 
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <button className="btn btn-primary btn-lg">
+              <Link href="/generate-resume" className="btn btn-primary btn-lg">
                 Upload Resume
-              </button>
-
-              <button className="btn btn-outline btn-lg">
-                Learn More
-              </button>
+              </Link>
             </div>
           </div>
         </div>

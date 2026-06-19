@@ -12,6 +12,8 @@
   },
   "dependencies": {
     "@google/genai": "^2.6.0",
+    "@upstash/ratelimit": "^2.0.8",
+    "@upstash/redis": "^1.38.0",
     "daisyui": "^5.5.20",
     "dotenv": "^17.4.2",
     "next": "16.2.6",
