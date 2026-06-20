@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from "next/link";
+import {useTranslations} from 'next-intl';
 // ui components
 import Body from "@/components/ui/body";
 import Section from "@/components/ui/section";
@@ -7,7 +8,8 @@ import Section from "@/components/ui/section";
 
 export default function Home() {
 
- 
+ const t = useTranslations('HomePage');
+
   return (
     <Body>
       
@@ -16,19 +18,16 @@ export default function Home() {
         <div className="hero-content text-center">
           <div className="max-w-3xl">
             <h1 className="text-5xl md:text-6xl sm:text-sm font-bold">
-              Optimize Your Resume with AI
+             {t('title')}
             </h1>
 
             <p className="py-6 text-lg opacity-80">
-              Upload your resume and paste a job
-              description. Our AI will tailor your
-              resume to improve ATS compatibility
-              and increase interview chances.
+              {t('hero-description')}
             </p>
 
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <Link href="/generate-resume" className="btn btn-primary btn-lg">
-                Upload Resume
+                {t('get-started')}
               </Link>
             </div>
           </div>
@@ -37,15 +36,17 @@ export default function Home() {
 
       {/* Features */}
       <Section className="container mx-auto px-6 py-16">
+        <h2 className="text-4xl font-bold mb-10 text-center">
+          {t('features.title')}
+        </h2>      
         <div className="grid md:grid-cols-3 gap-6">
           <div className="card bg-base-200 shadow-md">
             <div className="card-body">
               <h2 className="card-title">
-                ATS Friendly
+                {t('features.feature1.title')}
               </h2>
               <p>
-                Improve compatibility with modern
-                applicant tracking systems.
+                {t('features.feature1.description')}
               </p>
             </div>
           </div>
@@ -53,11 +54,10 @@ export default function Home() {
           <div className="card bg-base-200 shadow-md">
             <div className="card-body">
               <h2 className="card-title">
-                AI Optimization
+                {t('features.feature2.title')}
               </h2>
               <p>
-                Match keywords and skills directly
-                to the job description.
+                {t('features.feature2.description')}
               </p>
             </div>
           </div>
@@ -65,11 +65,10 @@ export default function Home() {
           <div className="card bg-base-200 shadow-md">
             <div className="card-body">
               <h2 className="card-title">
-                Professional Results
+                {t('features.feature3.title')}
               </h2>
               <p>
-                Get cleaner and more impactful
-                resume content.
+                {t('features.feature3.description')}
               </p>
             </div>
           </div>
@@ -80,20 +79,20 @@ export default function Home() {
       <Section className="bg-base-200 py-16">
         <div className="container mx-auto px-6 text-center">
           <h2 className="text-4xl font-bold mb-10">
-            How It Works
+            {t('steps.title')}
           </h2>
 
           <ul className="steps steps-vertical md:steps-horizontal w-full">
             <li className="step step-primary">
-              Upload Resume
+              {t('steps.step1')}
             </li>
 
             <li className="step step-primary">
-              Paste Job Description
+              {t('steps.step2')}
             </li>
 
             <li className="step step-primary">
-              Get Optimized Resume
+              {t('steps.step3')}
             </li>
           </ul>
         </div>
@@ -102,15 +101,15 @@ export default function Home() {
       {/* pricing */}
       <Section className="flex justify-center align-center text-center">
         <div className="rounded-lg bg-base-200 p-6">
-          <h4 className="text-4xl font-bold my-1">$5</h4>
-          <p className="my-2">Lifetime unlock</p>
+          <h4 className="text-4xl font-bold my-1">{t('pricing.title')}</h4>
+          <p className="my-2">{t('pricing.description')}</p>
           <ul className="text-left">
-            <li className="mb-2">✅ Resume-based personalization</li>
-            <li className="mb-2">✅ Unlimited cover letters</li>
-            <li className="mb-2">✅ You can cancel at any time no questions asked</li>
+            <li className="mb-2">✅ {t('pricing.1')}</li>
+            <li className="mb-2">✅ {t('pricing.2')}</li>
+            <li className="mb-2">✅ {t('pricing.3')}</li>
           </ul>
           <Link href="https://buy.stripe.com/test_5kQaEX7yX3Mp67CdQV6Zy00" className="btn btn-primary rounded-xl px-4 py-3">
-            Get Started for $5
+            {t('pricing.cta')}
           </Link>
         </div>
       </Section>

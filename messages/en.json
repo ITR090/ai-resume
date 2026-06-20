@@ -1,0 +1,68 @@
+{
+    "nav": {
+        "home": "Home",
+        "generate-resume": "Generate Resume",
+        "cover-letter":"Cover Letter",
+        "login": "Login",
+        "theme": "Theme",
+        "light": "Light",
+        "dark": "Dark",
+        "lemonade": "Lemonade"
+    },
+    "HomePage": {
+        "title": "Optimize Your Resume with AI",
+        "hero-description": "Upload your resume and paste a job description. Our AI will tailor your resume to improve ATS compatibility and increase interview chances.",
+        "get-started": "Get Started",
+        "features": {
+            "title": "Why Choose Our AI Resume Optimizer?",
+            "feature1": {
+                "title": "ATS Friendly",
+                "description": "Improve compatibility with modern applicant tracking systems."
+            },
+            "feature2": {
+                "title": "AI Optimization",
+                "description": "Match keywords and skills directly to the job description."
+            },
+            "feature3": {
+                "title": "Professional Results",
+                "description": "Get cleaner and more impactful resume content."
+            }
+        },
+        "steps": {
+            "title": "How It Works",
+            "step1": "Upload Resume",
+            "step2": "Paste Job Description",
+            "step3": "Get Optimized Resume"
+        },
+        "pricing": {
+            "title": "$5",
+            "description": "Lifetime unlock",
+            "1": "Resume-based personalization",
+            "2": "No subscription or recurring fees",
+            "3": "You can cancel at any time no questions asked",
+            "cta": "Get Started for $5"
+        }
+    },
+    "generate-resume": {
+        "title": "AI Resume Enhancer",
+        "description": "Paste your current resume below and get an improved, professional rewrite resume.",
+        "resume-upload": "Select Resume",
+        "job-description": "Job Description",
+        "job-description-placeholder": "Job Description...",
+        "job-description-hint": "Works great with content pasted from LinkedIn or other job boards.",
+        "start-rewrite": "Rewrite My Resume",
+        "rewriting":"Rewriting...",
+        "helper":"Your enhanced resume will appear here."
+    },
+    "cover-letter":{
+        "title": "AI Cover Letter Generator",
+        "description": "Instantly generate tailored cover letters from any job description.",
+        "job-description": "Job Description",
+        "job-description-placeholder": "Job Description...",
+        "job-description-hint": "Works great with content pasted from LinkedIn or other job boards.",
+        "role-placeholder": "Role you're applying for (Software Engineer, Product Manager, etc.)",
+        "start-generate-cover-letter": "Start",
+        "generating-cover-letter": "Generating Cover Letter",
+        "helper":"Your enhanced cover letter will appear here."
+    }
+}

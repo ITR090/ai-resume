@@ -1,4 +1,5 @@
 import { Geist, Geist_Mono } from "next/font/google";
+import {NextIntlClientProvider} from 'next-intl';
 import "./globals.css";
 // ui components
 import NavBar from "@/components/ui/nav-bar";
@@ -27,9 +28,11 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
+      dir="ltr"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+      <NextIntlClientProvider>
         <ToastProvider>
           <ThemeProvider>
             <ClientThemeWrapper>
@@ -39,6 +42,7 @@ export default function RootLayout({ children }) {
             </ClientThemeWrapper>
           </ThemeProvider>
         </ToastProvider>
+      </NextIntlClientProvider>  
       </body>
     </html>
   );

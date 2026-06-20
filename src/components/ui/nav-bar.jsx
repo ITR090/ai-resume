@@ -2,13 +2,14 @@
 import React, {useContext} from "react";
 import { ThemeContext } from "../../context/ThemeContext";
 import Link from "next/link";
-import Image from "next/image";
+import {useTranslations} from 'next-intl';
 // icon
 import icon from '../../../public/icon.png';
 
 export default function Navbar() {
 
   const {toggleTheme} = useContext(ThemeContext);
+  const t = useTranslations('nav');
 
   return (
     <div className="max-lg:collapse bg-base-200 shadow-sm w-full">
@@ -26,38 +27,38 @@ export default function Navbar() {
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
-            <li><Link href="/generate-resume" className="text-primary">Generate Resume</Link></li>
-            <li><Link href="/cover-letter" className="text-primary">Cover Letter</Link></li>
+            <li><Link href="/generate-resume" className="text-primary">{t('generate-resume')}</Link></li>
+            <li><Link href="/cover-letter" className="text-primary">{t('cover-letter')}</Link></li>
           </ul>
         </div>
         <div className="navbar-end">
           <ul className="menu menu-horizontal px-1 hidden lg:flex">
             <li>
             <details>
-              <summary>Themes</summary>
+              <summary>{t('theme')}</summary>
               <ul className="p-2 bg-base-200 w-40 z-1">
-                <li><button onClick={() => toggleTheme("light")}>Light</button></li>
-                <li><button onClick={() => toggleTheme("dark")}>Dark</button></li>
-                <li><button onClick={() => toggleTheme("lemonade")}>Lemonade</button></li>
+                <li><button onClick={() => toggleTheme("light")}>{t('light')}</button></li>
+                <li><button onClick={() => toggleTheme("dark")}>{t('dark')}</button></li>
+                <li><button onClick={() => toggleTheme("lemonade")}>{t('lemonade')}</button></li>
               </ul>
             </details>
           </li>
           </ul>
-          <Link href="/login" className="btn btn-primary">Login</Link>
+          <Link href="/login" className="btn btn-primary">{t('login')}</Link>
         </div>
       </div>
 
       <div className="collapse-content lg:hidden z-1">
         <ul className="menu">
-          <li><Link href="/generate-resume" className="text-primary">Generate Resume</Link></li>
-          <li><Link href="/cover-letter" className="text-primary">Cover Letter</Link></li>
+          <li><Link href="/generate-resume" className="text-primary">{t('generate-resume')}</Link></li>
+          <li><Link href="/cover-letter" className="text-primary">{t('cover-letter')}</Link></li>
           <li>
             <details>
               <summary>Themes</summary>
               <ul className="p-2 bg-base-200 w-40 z-1">
-                <li><button onClick={() => toggleTheme("light")}>Light</button></li>
-                <li><button onClick={() => toggleTheme("dark")}>Dark</button></li>
-                <li><button onClick={() => toggleTheme("lemonade")}>Lemonade</button></li>
+                <li><button onClick={() => toggleTheme("light")}>{t('light')}</button></li>
+                <li><button onClick={() => toggleTheme("dark")}>{t('dark')}</button></li>
+                <li><button onClick={() => toggleTheme("lemonade")}>{t('lemonade')}</button></li>
               </ul>
             </details>
           </li>

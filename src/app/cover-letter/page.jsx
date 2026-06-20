@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
 import { useState } from "react";
+import {useTranslations} from 'next-intl';
 // ui components
 import Body from '@/components/ui/body';
 import Section from '@/components/ui/section';
@@ -18,6 +19,7 @@ export default function CoverLetterPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const { showToast } = useToast()
+  const t = useTranslations('cover-letter');
   
   const handleSubmit = async () => {
 
@@ -72,22 +74,22 @@ export default function CoverLetterPage() {
     <Body>
 
       <Section className="text-center">
-        <h3 className="text-4xl font-extrabold tracking-tight md:text-4xl">AI <span className='text-primary'>Cover Letter</span> Generator</h3>
-        <p className="text-lg">Instantly generate tailored cover letters from any job description.</p>
+        <h3 className="text-4xl font-extrabold tracking-tight md:text-4xl">{t('title')}</h3>
+        <p className="mt-2 text-lg">{t('description')}</p>
       </Section>
 
       {/* Job Description... */}
       <Section>
-        <h5 className="text-xl font-bold mb-2">Job Description</h5>
-        <Textarea onTextAreaChange={(e) => setJobDescription(e.target.value)} />
+        <h5 className="text-xl font-bold mb-2">{t('job-description')}</h5>
+        <Textarea onTextAreaChange={(e) => setJobDescription(e.target.value)} placeholder={t('job-description-placeholder')} />
         <p className="text-sm">
-          Works great with content pasted from LinkedIn or other job boards.
+          {t('job-description-hint')}
         </p>
       </Section>
 
       {/* Role */}
       <Section className="text-sm mb-4 flex flex-row gap-4">
-        <input type="text" placeholder="Desired Role (e.g., Software Engineer, Product Manager)" className="w-full border rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" value={role} onChange={(e) => setRole(e.target.value)} />
+        <input type="text" placeholder={t('role-placeholder')} className="w-full border rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" value={role} onChange={(e) => setRole(e.target.value)} />
         <select className="w-full border rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" value={tone} onChange={(e) => setTone(e.target.value)}>
           <option value="professional">Professional</option>
           <option value="confident">Confident</option>
@@ -99,11 +101,11 @@ export default function CoverLetterPage() {
       <Section className='flex items-center justify-center'>
         <Button variant="primary" 
           className={`btn btn-primary rounded-xl px-4 py-3 text-sm`} onClick={handleSubmit} disabled={isLoading}>
-          {isLoading ? 'Generating...' : 'Generate Cover Letter'}
+          {isLoading ? t('generating-cover-letter') : t('start-generate-cover-letter')}
         </Button>
       </Section>
       
-      {errorMessage && <p className="w-auto mt-4 text-sm">{errorMessage}</p>}
+      {/* {errorMessage && <p className="w-auto mt-4 text-sm">{errorMessage}</p>} */}
       
       {/* Cover Letter Output */}
       <Section className="bg-base-200 p-5 rounded-lg shadow-sm whitespace-pre-line min-h-60">
@@ -112,7 +114,7 @@ export default function CoverLetterPage() {
             <p className="text-base-content">{feedback}</p>
           </div>
         ) : (
-          <p className="text-base-content">Your enhanced cover letter will appear here.</p>
+          <p className="text-base-content">{t('helper')}</p>
         )}
       </Section>
 

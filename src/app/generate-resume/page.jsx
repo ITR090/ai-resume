@@ -1,5 +1,6 @@
 'use client';
 import { useState } from "react";
+import {useTranslations} from 'next-intl';
 // ui components
 import Body from "@/components/ui/body";
 import Section from "@/components/ui/section";
@@ -12,6 +13,7 @@ import { useToast } from '@/context/ToastContext';
 
 export default function GenerateResume() {
 
+    const t = useTranslations('generate-resume');
     const [jobDescription, setJobDescription] = useState("");
     const [file, setFile] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
@@ -87,22 +89,22 @@ export default function GenerateResume() {
 
             {/*  */}
             <Section className="text-center">
-                <h3 className="text-4xl font-extrabold tracking-tight md:text-4xl">AI <span className="text-primary">Resume</span> Enhancer</h3>
-                <p className="text-lg">Paste your current resume below and get an improved, professional rewrite.</p>
+                <h3 className="text-4xl font-extrabold tracking-tight md:text-4xl">{t('title')}</h3>
+                <p className="mt-2 text-lg">{t('description')}</p>
             </Section>
 
             {/* Resume Upload */}
             <Section>
-                <h5 className='text-xl font-bold mb-2'>1. Select Resume</h5>
+                <h5 className='text-xl font-bold mb-2'>{t('resume-upload')}</h5>
                 <FileUpload onFileChange={(e) => setFile(e.target.files[0])} />
             </Section>
 
             {/* Job Description... */}
             <Section>
-                <h5 className="text-xl font-bold mb-2">2. Job Description</h5>
-                <Textarea onTextAreaChange={(e) => setJobDescription(e.target.value)} />
+                <h5 className="text-xl font-bold mb-2">{t('job-description')}</h5>
+                <Textarea onTextAreaChange={(e) => setJobDescription(e.target.value)} placeholder={t('job-description-placeholder')} />
                 <p className="text-sm">
-                    Works great with content pasted from LinkedIn or other job boards.
+                    {t('job-description-hint')}
                 </p>
             </Section>
 
@@ -110,11 +112,11 @@ export default function GenerateResume() {
             <Section className='flex items-center justify-center'>
                 <Button onClick={handleSubmit} variant="primary" 
                 className={`btn btn-primary rounded-xl px-4 py-3`} disabled={isLoading}>
-                    {isLoading ? "Rewriting..." : "Rewrite My Resume"}
+                    {isLoading ? t('rewriting') : t('start-rewrite')}
                 </Button>
             </Section>
 
-            {errorMessage && <p className="w-auto mt-4 text-sm">{errorMessage}</p>}
+            {/* {errorMessage && <p className="w-auto mt-4 text-sm">{errorMessage}</p>} */}
 
             {/* Resume Output */}
             <Section className="bg-base-200 p-5 rounded-lg shadow-sm whitespace-pre-line min-h-60">
@@ -123,7 +125,7 @@ export default function GenerateResume() {
                         <p className="text-base-content">{feedback}</p>
                     </div>
                 ) : (
-                    <p className="text-base-content">Your enhanced resume will appear here.</p>
+                    <p className="text-base-content">{t('helper')}</p>
                 )}
             </Section>
         </Body>

@@ -5,6 +5,9 @@ import OpenAI from "openai";
 const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
 });
+import { getUserIP } from '@/components/utils/get-user-ip';
+import { ratelimit } from '@/components/utils/limiter';
+import { setIP } from '@/components/utils/limiter';
 
 
 export async function POST(request) {
@@ -12,6 +15,17 @@ export async function POST(request) {
     try {
 
         const { resume, jobDescription } = await request.json();
+
+        const userIP = await getUserIP();
+        const { success } = await ratelimit.limit(userIP);
+       
+        if (!success) { 
+            await setIP(userIP);
+            return NextResponse.json(
+                { message: 'You have reached the limit of resume generations allowed per day. Please try again later.' },
+                { status: 429 }
+            );
+        }
 
         // instructions 
         const prompt = `

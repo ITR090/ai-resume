@@ -6,7 +6,6 @@ function TextArea({onTextAreaChange, classname, ...props}) {
           {...props}
           name="jobDescription"
           rows="5"
-          placeholder="Job Description..."
           className="w-full rounded-xl border px-4 py-3 text-sm resize-none"
           onChange={onTextAreaChange}
         ></textarea>
