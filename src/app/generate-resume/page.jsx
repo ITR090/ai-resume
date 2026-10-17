@@ -7,6 +7,7 @@ import Section from "@/components/ui/section";
 import FileUpload from "@/components/ui/file-upload";
 import Textarea from "@/components/ui/text-area";
 import Button from "@/components/ui/button";
+import ResultPanel from "@/components/ui/result-panel";
 // context
 import { useToast } from '@/context/ToastContext';
 
@@ -87,47 +88,61 @@ export default function GenerateResume() {
     return (
         <Body>
 
-            {/*  */}
-            <Section className="text-center">
-                <h3 className="text-4xl font-extrabold tracking-tight md:text-4xl">{t('title')}</h3>
-                <p className="mt-2 text-lg">{t('description')}</p>
+            {/* Header */}
+            <Section className="relative isolate mt-0 text-center">
+                <div aria-hidden className="bg-dots absolute inset-x-0 -top-10 -z-10 h-56" />
+                <span className="badge badge-primary badge-soft mb-4">{t('badge')}</span>
+                <h1 className="text-3xl font-extrabold tracking-tight md:text-4xl">{t('title')}</h1>
+                <p className="mx-auto mt-3 max-w-2xl text-lg text-base-content/70">{t('description')}</p>
             </Section>
 
-            {/* Resume Upload */}
-            <Section>
-                <h5 className='text-xl font-bold mb-2'>{t('resume-upload')}</h5>
-                <FileUpload onFileChange={(e) => setFile(e.target.files[0])} />
-            </Section>
+            <div className="mt-10 grid items-start gap-8 lg:grid-cols-2">
+                <div className="card border border-base-300 bg-base-100 shadow-sm">
+                    <div className="card-body gap-8">
+                        {/* Resume Upload */}
+                        <div>
+                            <h2 className="mb-3 flex items-center gap-2 text-lg font-semibold">
+                                <span className={`badge badge-sm ${file ? 'badge-success' : 'badge-primary'}`}>{file ? '✓' : '1'}</span>
+                                {t('resume-upload')}
+                            </h2>
+                            <FileUpload onFileChange={(e) => setFile(e.target.files[0])} />
+                        </div>
 
-            {/* Job Description... */}
-            <Section>
-                <h5 className="text-xl font-bold mb-2">{t('job-description')}</h5>
-                <Textarea onTextAreaChange={(e) => setJobDescription(e.target.value)} placeholder={t('job-description-placeholder')} />
-                <p className="text-sm">
-                    {t('job-description-hint')}
-                </p>
-            </Section>
+                        {/* Job Description... */}
+                        <div>
+                            <label htmlFor="job-description" className="mb-3 flex items-center gap-2 text-lg font-semibold">
+                                <span className={`badge badge-sm ${jobDescription.trim() ? 'badge-success' : 'badge-primary'}`}>{jobDescription.trim() ? '✓' : '2'}</span>
+                                {t('job-description')}
+                            </label>
+                            <Textarea id="job-description" onTextAreaChange={(e) => setJobDescription(e.target.value)} placeholder={t('job-description-placeholder')} />
+                            <div className="mt-2 flex justify-between gap-4 text-sm text-base-content/60">
+                                <p>{t('job-description-hint')}</p>
+                                <span className="shrink-0 tabular-nums">{jobDescription.length}</span>
+                            </div>
+                        </div>
 
-            {/* Submit Button */}
-            <Section className='flex items-center justify-center'>
-                <Button onClick={handleSubmit} variant="primary" 
-                className={`btn btn-primary rounded-xl px-4 py-3`} disabled={isLoading}>
-                    {isLoading ? t('rewriting') : t('start-rewrite')}
-                </Button>
-            </Section>
-
-            {/* {errorMessage && <p className="w-auto mt-4 text-sm">{errorMessage}</p>} */}
-
-            {/* Resume Output */}
-            <Section className="bg-base-200 p-5 rounded-lg shadow-sm whitespace-pre-line min-h-60">
-                {feedback ? (
-                    <div>
-                        <p className="text-base-content">{feedback}</p>
+                        {/* Submit Button */}
+                        <Button onClick={handleSubmit} variant="primary"
+                        className="btn btn-primary btn-lg btn-block rounded-xl shadow-lg shadow-primary/20" disabled={isLoading}>
+                            {isLoading ? (
+                                <span className="loading loading-spinner loading-sm" />
+                            ) : (
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.8} stroke="currentColor" className="size-5" aria-hidden="true">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09Z" />
+                                </svg>
+                            )}
+                            {isLoading ? t('rewriting') : t('start-rewrite')}
+                        </Button>
                     </div>
-                ) : (
-                    <p className="text-base-content">{t('helper')}</p>
-                )}
-            </Section>
+                </div>
+
+                {/* {errorMessage && <p className="w-auto mt-4 text-sm">{errorMessage}</p>} */}
+
+                {/* Resume Output */}
+                <div className="lg:sticky lg:top-24">
+                    <ResultPanel title={t('result-title')} content={feedback} helper={t('helper')} isLoading={isLoading} loadingText={t('rewriting')} />
+                </div>
+            </div>
         </Body>
     )
 }

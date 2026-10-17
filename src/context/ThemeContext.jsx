@@ -1,5 +1,5 @@
 'use client';
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 const ThemeContext = createContext({
     theme: "",
@@ -9,10 +9,20 @@ const ThemeContext = createContext({
 
 const ThemeProvider = ({ children }) => {
 
-    const [theme, setTheme] = useState("light");
+    // Empty means "follow the system preference" (daisyUI light/dark).
+    const [theme, setTheme] = useState("");
+
+    // Pick up the theme the inline script in layout.js applied before hydration.
+    useEffect(() => {
+        setTheme(document.documentElement.getAttribute("data-theme") || "");
+    }, []);
 
     const toggleTheme = (theme) => {
         setTheme(theme);
+        document.documentElement.setAttribute("data-theme", theme);
+        try {
+            localStorage.setItem("theme", theme);
+        } catch {}
     }
 
     return (

@@ -7,13 +7,30 @@
         "theme": "Theme",
         "light": "Light",
         "dark": "Dark",
-        "lemonade": "Lemonade"
+        "lemonade": "Lemonade",
+        "language": "Switch language",
+        "rights": "All rights reserved."
     },
     "HomePage": {
+        "badge": "AI-powered resume optimization",
         "title": "Optimize Your Resume with AI",
+        "title-start": "Land more interviews with a resume",
+        "title-highlight": "tailored by AI",
         "hero-description": "Upload your resume and paste a job description. Our AI will tailor your resume to improve ATS compatibility and increase interview chances.",
         "get-started": "Get Started",
+        "cover-letter-cta": "Write a Cover Letter",
+        "trust1": "No sign-up required",
+        "trust2": "Works with PDF resumes",
+        "trust3": "English & Arabic",
+        "preview": {
+            "before": "Before",
+            "before-text": "Worked on front-end pages for the bank website.",
+            "after": "After",
+            "after-text": "Built responsive React and Next.js interfaces for customer-facing banking applications, collaborating with cross-functional teams to ship new features.",
+            "keywords": "Matched keywords"
+        },
         "features": {
+            "eyebrow": "Features",
             "title": "Why Choose Our AI Resume Optimizer?",
             "feature1": {
                 "title": "ATS Friendly",
@@ -29,40 +46,86 @@
             }
         },
         "steps": {
+            "eyebrow": "3 simple steps",
             "title": "How It Works",
             "step1": "Upload Resume",
+            "step1-description": "Select your current resume as a PDF file.",
             "step2": "Paste Job Description",
-            "step3": "Get Optimized Resume"
+            "step2-description": "Copy the job post from LinkedIn or any job board.",
+            "step3": "Get Optimized Resume",
+            "step3-description": "Review the tailored version, then copy it or save it as a PDF."
         },
         "pricing": {
+            "eyebrow": "Pricing",
+            "heading": "Simple, one-time pricing",
             "title": "$5",
             "description": "Lifetime unlock",
+            "subtitle": "One-time payment",
             "1": "Resume-based personalization",
             "2": "No subscription or recurring fees",
             "3": "You can cancel at any time no questions asked",
             "cta": "Get Started for $5"
+        },
+        "faq": {
+            "eyebrow": "FAQ",
+            "title": "Frequently Asked Questions",
+            "q1": "Which file formats are supported?",
+            "a1": "Resumes are uploaded as PDF files. Job descriptions can be pasted as plain text from any job board.",
+            "q2": "Will the AI make up experience?",
+            "a2": "No. The AI is instructed to keep everything truthful and based only on your original resume. If details are missing, it adds placeholders like [Phone Number] for you to fill in.",
+            "q3": "Is there a usage limit?",
+            "a3": "To keep the service fair for everyone, there is a daily generation limit. If you reach it, simply try again the next day.",
+            "q4": "How do I use the result?",
+            "a4": "Copy the generated text into your own resume template, or save it directly as a PDF from the result panel."
+        },
+        "cta": {
+            "title": "Ready to stand out?",
+            "description": "Tailor your resume to your next job in under a minute."
         }
     },
     "generate-resume": {
+        "badge": "Resume Enhancer",
         "title": "AI Resume Enhancer",
-        "description": "Paste your current resume below and get an improved, professional rewrite resume.",
+        "description": "Upload your current resume and add the job description to get an improved, professional rewrite tailored to the role.",
         "resume-upload": "Select Resume",
         "job-description": "Job Description",
         "job-description-placeholder": "Job Description...",
         "job-description-hint": "Works great with content pasted from LinkedIn or other job boards.",
         "start-rewrite": "Rewrite My Resume",
         "rewriting":"Rewriting...",
+        "result-title": "Enhanced Resume",
         "helper":"Your enhanced resume will appear here."
     },
     "cover-letter":{
+        "badge": "Cover Letter Generator",
         "title": "AI Cover Letter Generator",
         "description": "Instantly generate tailored cover letters from any job description.",
         "job-description": "Job Description",
         "job-description-placeholder": "Job Description...",
         "job-description-hint": "Works great with content pasted from LinkedIn or other job boards.",
+        "role": "Role",
         "role-placeholder": "Role you're applying for (Software Engineer, Product Manager, etc.)",
-        "start-generate-cover-letter": "Start",
-        "generating-cover-letter": "Generating Cover Letter",
+        "tone": "Tone",
+        "tones": {
+            "professional": "Professional",
+            "confident": "Confident",
+            "executive": "Executive"
+        },
+        "start-generate-cover-letter": "Generate Cover Letter",
+        "generating-cover-letter": "Generating Cover Letter...",
+        "result-title": "Your Cover Letter",
         "helper":"Your enhanced cover letter will appear here."
+    },
+    "file-upload": {
+        "click": "Click to upload",
+        "or-drag": "or drag and drop",
+        "pdf-only": "PDF only",
+        "replace": "Click or drop another file to replace"
+    },
+    "result": {
+        "copy": "Copy",
+        "copied": "Copied",
+        "save-pdf": "Save as PDF",
+        "placeholders-hint": "Highlighted placeholders are details missing from your resume. Replace them with your own information."
     }
 }

@@ -1,29 +1,104 @@
 @import "tailwindcss";
 @plugin "daisyui" {
-   themes: light --default, dark --prefersdark, lemonade;
- }
+  themes: light --default, dark --prefersdark, lemonade;
+}
 
-:root {
-  
+/* Brand tweaks on top of daisyUI's built-in light/dark themes */
+@plugin "daisyui/theme" {
+  name: "light";
+  default: true;
+  color-scheme: light;
+  --color-base-100: oklch(100% 0 0);
+  --color-base-200: oklch(97.8% 0.006 277);
+  --color-base-300: oklch(92.5% 0.012 277);
+  --color-base-content: oklch(23% 0.03 270);
+  --color-primary: oklch(51% 0.23 277);
+  --color-primary-content: oklch(99% 0.01 277);
+  --color-secondary: oklch(60% 0.22 320);
+  --color-secondary-content: oklch(99% 0.01 320);
+  --radius-field: 0.625rem;
+  --radius-box: 1rem;
+}
+
+@plugin "daisyui/theme" {
+  name: "dark";
+  prefersdark: true;
+  color-scheme: dark;
+  --color-base-100: oklch(21% 0.025 272);
+  --color-base-200: oklch(18% 0.022 272);
+  --color-base-300: oklch(30% 0.03 272);
+  --color-base-content: oklch(95% 0.012 272);
+  --color-primary: oklch(62% 0.2 277);
+  --color-primary-content: oklch(99% 0.01 277);
+  --color-secondary: oklch(68% 0.19 320);
+  --color-secondary-content: oklch(18% 0.03 320);
+  --radius-field: 0.625rem;
+  --radius-box: 1rem;
 }
 
 @theme inline {
-  /* --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono); */
+  --font-sans: var(--font-geist-sans), var(--font-arabic), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    /* --background: #0a0a0a;
-    --foreground: #ededed; */
+@theme {
+  --animate-fade-up: fade-up 0.6s ease-out both;
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  /* background: var(--background);
-  color: var(--foreground); */
   margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+}
+
+/* Arabic reads better with a little more line height */
+html[lang="ar"] body {
+  line-height: 1.8;
+}
+
+/* Hide the default marker on <details> dropdowns */
+summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Subtle dotted background, faded at the edges */
+.bg-dots {
+  background-image: radial-gradient(
+    color-mix(in oklab, var(--color-base-content) 14%, transparent) 1px,
+    transparent 1px
+  );
+  background-size: 22px 22px;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+}
+
+/* "Save as PDF" prints only the generated result */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .print-area,
+  .print-area * {
+    visibility: visible;
+  }
+  .print-area {
+    position: absolute;
+    inset: 0 auto auto 0;
+    width: 100%;
+    color: black;
+    background: white;
+  }
 }
